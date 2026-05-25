@@ -1,22 +1,14 @@
 {
-  "name": "playwright-automation",
+  "name": "saucedemo-playwright-automation",
   "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/kunwarprakash/playwright-automation#readme",
-  "bugs": {
-    "url": "https://github.com/kunwarprakash/playwright-automation/issues"
+  "description": "Web UI automation for SauceDemo using Playwright and TypeScript",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kunwarprakash/playwright-automation.git"
-  },
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
-  "scripts": {},
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.2"
+    "@playwright/test": "^1.42.0",
+    "@types/node": "^20.11.24"
   }
 }
