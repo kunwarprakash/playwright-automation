@@ -32,7 +32,7 @@ export default defineConfig({
     trace: 'on',
     baseURL: 'https://www.saucedemo.com',
     screenshot: 'only-on-failure',
-    headless: false,
+    headless: true,
   },
 
   /* Configure projects for major browsers */
