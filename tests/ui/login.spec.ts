@@ -1,23 +1,20 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/LoginPage';
+import { test, expect } from '../../utils/test-base';
 
 test.describe('1. Login Module', () => {
-  let loginPage: LoginPage;
 
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    await loginPage.goto();
+  test.beforeEach(async ({ pages }) => {
+    await pages.loginPage.goto();
   });
 
-  test('Positive: Successful login with valid credentials', async ({ page }) => {
-    await loginPage.login('standard_user');
-    await expect(page).toHaveURL('/inventory.html');
+  test('Positive: Successful login with valid credentials', async ({ pages }) => {
+    await pages.loginPage.login('standard_user');
+    await expect(pages.page).toHaveURL('/inventory.html');
     
   });
 
-  test('Negative: Login failure with invalid credentials', async () => {
-    await loginPage.login('invalid_user', 'wrong_password');
-    await expect(loginPage.errorMessage).toBeVisible();
-    await expect(loginPage.errorMessage).toContainText('Epic sadface: Username and password do not match');
+  test('Negative: Login failure with invalid credentials', async ({pages}) => {
+    await pages.loginPage.login('invalid_user', 'wrong_password');
+    await expect(pages.loginPage.errorMessage).toBeVisible();
+    await expect(pages.loginPage.errorMessage).toContainText('Epic sadface: Username and password do not match');
   });
 });

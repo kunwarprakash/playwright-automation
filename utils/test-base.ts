@@ -1,0 +1,18 @@
+//Implementing the Fixtures Here
+
+import {test as baseTest,Page} from '@playwright/test';
+import { PageFixture } from '../fixtures/page-fixtures';
+
+type Fixtures = {
+    pages: PageFixture;
+}
+
+export const test = baseTest.extend<Fixtures> ({
+
+    pages: async ({page}, use) => {
+        await use(new PageFixture(page));
+    },
+
+});
+
+export {expect} from '@playwright/test';

@@ -1,7 +1,8 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
+import allLocators from '../locators/locators.json';
 
-export class CheckoutPage {
-  readonly page: Page;
+export class CheckoutPage extends BasePage{
   readonly checkoutButton: Locator;
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
@@ -10,31 +11,32 @@ export class CheckoutPage {
   readonly finishButton: Locator;
   readonly completeHeader: Locator;
   readonly errorMessage: Locator;
+  private locators = allLocators.CheckoutPage;
 
   constructor(page: Page) {
-    this.page = page;
-    this.checkoutButton = page.locator('[data-test="checkout"]');
-    this.firstNameInput = page.locator('[data-test="firstName"]');
-    this.lastNameInput = page.locator('[data-test="lastName"]');
-    this.postalCodeInput = page.locator('[data-test="postalCode"]');
-    this.continueButton = page.locator('[data-test="continue"]');
-    this.finishButton = page.locator('[data-test="finish"]');
-    this.completeHeader = page.locator('.complete-header');
-    this.errorMessage = page.locator('[data-test="error"]');
+    super(page);
+    this.checkoutButton =  page.locator(this.locators.checkoutButton);
+    this.firstNameInput = page.locator(this.locators.firstNameInput);
+    this.lastNameInput = page.locator(this.locators.lastNameInput);
+    this.postalCodeInput = page.locator(this.locators.postalCodeInput);
+    this.continueButton = page.locator(this.locators.continueButton);
+    this.finishButton = page.locator(this.locators.finishButton);
+    this.completeHeader = page.locator(this.locators.completeHeader);
+    this.errorMessage = page.locator(this.locators.errorMessage);
   }
 
   async startCheckout() {
-    await this.checkoutButton.click();
+    await this.clickElement(this.checkoutButton);
   }
 
   async fillShippingInfo(firstName: string, lastName: string, zip: string) {
-    if (firstName) await this.firstNameInput.fill(firstName);
-    if (lastName) await this.lastNameInput.fill(lastName);
-    if (zip) await this.postalCodeInput.fill(zip);
-    await this.continueButton.click();
+    if (firstName) await this.typeText(this.firstNameInput, firstName);
+    if (lastName) await this.typeText(this.lastNameInput, lastName);
+    if (zip) await this.typeText(this.postalCodeInput, zip);
+    await this.clickElement(this.continueButton);
   }
 
   async finishCheckout() {
-    await this.finishButton.click();
+    await this.clickElement(this.finishButton);
   }
 }

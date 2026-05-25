@@ -1,16 +1,18 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
+import allLocators from '../locators/locators.json';
 
-export class InventoryPage {
-  readonly page: Page;
+export class InventoryPage extends BasePage {
   readonly title: Locator;
   readonly cartIcon: Locator;
   readonly cartBadge: Locator;
+  private locators =  allLocators.InventoryPage;
 
   constructor(page: Page) {
-    this.page = page;
-    this.title = page.locator('.title');
-    this.cartIcon = page.locator('.shopping_cart_link');
-    this.cartBadge = page.locator('.shopping_cart_badge');
+    super(page)
+    this.title = page.locator(this.locators.title);
+    this.cartIcon = page.locator(this.locators.cartIcon);
+    this.cartBadge = page.locator(this.locators.cartBadge);
   }
 
   async addToCart(productName: string) {
